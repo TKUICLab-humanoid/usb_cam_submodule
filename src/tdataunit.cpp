@@ -12,7 +12,6 @@ TdataUnit::TdataUnit()
     CameraParameterValue->white_balance = 0;
     CameraParameterValue->ParameterName = "[Camera Set Parameter]";   
     tool = ToolInstance::getInstance();
-    initparameterpath();
 }
 
 TdataUnit::~TdataUnit()
@@ -20,19 +19,10 @@ TdataUnit::~TdataUnit()
     delete CameraParameterValue;
 }
 
-void TdataUnit::initparameterpath()
-{
-	while(parameter_path == "N")
-	{
-		parameter_path = tool->getPackagePath("strategy");
-	}
-	printf("parameter_path is %s\n", parameter_path.c_str());
-}
-
 void TdataUnit::SaveCameraSetFile()
 {
     char path[200];
-    strcpy(path, parameter_path.c_str());
+    strcpy(path, tool->parameterPath.c_str());
     strcat(path, "/CameraSet.ini");
     try
     {
@@ -73,7 +63,7 @@ void TdataUnit::LoadCameraSetFile()
     fstream fin;
     char line[100]; 
     char path[200];
-    strcpy(path, parameter_path.c_str());
+    strcpy(path, tool->parameterPath.c_str());
     strcat(path, "/CameraSet.ini");
     fin.open(path, ios::in);
     try
