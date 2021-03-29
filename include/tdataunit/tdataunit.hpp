@@ -27,12 +27,9 @@ class TdataUnit
 public:
     TdataUnit();
     ~TdataUnit();
-    void initparameterpath();
     void SaveCameraSetFile();
     void LoadCameraSetFile();
     ToolInstance *tool;
-
-    string parameter_path = "N";
 
     CameraParameter* CameraParameterValue;
 };
