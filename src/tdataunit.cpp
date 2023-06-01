@@ -19,11 +19,13 @@ TdataUnit::~TdataUnit()
     delete CameraParameterValue;
 }
 
-void TdataUnit::SaveCameraSetFile()
+void TdataUnit::SaveCameraSetFile(std::string location)
 {
     char path[200];
     strcpy(path, tool->parameterPath.c_str());
-    strcat(path, "/CameraSet.ini");
+    strcat(path, "/");
+    strcat(path, location.c_str());
+    strcat(path, "/Parameter/CameraSet.ini");
     try
     {
         ofstream OutFile(path);
@@ -58,13 +60,17 @@ void TdataUnit::SaveCameraSetFile()
     }
 }
 
-void TdataUnit::LoadCameraSetFile()
+void TdataUnit::LoadCameraSetFile(std::string location)
 {
     fstream fin;
     char line[100]; 
     char path[200];
-    strcpy(path, tool->parameterPath.c_str());
-    strcat(path, "/CameraSet.ini");
+    strcpy(path, tool->getPackagePath("strategy").c_str());
+    printf("location:%s\n",location.c_str());
+    strcat(path, "/");
+    strcat(path, location.c_str());
+    strcat(path, "/Parameter/CameraSet.ini");
+    printf("%s\n",path);
     fin.open(path, ios::in);
     try
     {

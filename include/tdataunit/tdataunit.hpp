@@ -27,8 +27,8 @@ class TdataUnit
 public:
     TdataUnit();
     ~TdataUnit();
-    void SaveCameraSetFile();
-    void LoadCameraSetFile();
+    void SaveCameraSetFile(std::string location);
+    void LoadCameraSetFile(std::string location);
     ToolInstance *tool;
 
     CameraParameter* CameraParameterValue;
