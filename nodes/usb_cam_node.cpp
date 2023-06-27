@@ -53,7 +53,7 @@ private:
   ros::Subscriber getpara_sub_;
   ros::ServiceServer Camera_service;
   ros::NodeHandle node_;
-
+  std::string location;
   TdataUnit CameraSet;//for save camera parameters
 public:
   // private ROS node handle
@@ -92,7 +92,7 @@ public:
   }
 
   void loadCameraFile(){
-    CameraSet.LoadCameraSetFile();
+    CameraSet.LoadCameraSetFile(location);
     brightness_         = CameraSet.CameraParameterValue->brightness;
     contrast_           = CameraSet.CameraParameterValue->contrast;
     saturation_         = CameraSet.CameraParameterValue->saturation;
@@ -119,7 +119,7 @@ public:
     CameraSet.CameraParameterValue->auto_exposure       = (auto_exposure_==1)?true:false;
     CameraSet.CameraParameterValue->auto_white_balance = (auto_white_balance_==1)?true:false;
     CameraSet.CameraParameterValue->auto_Backlight_Compensation = (auto_Backlight_Compensation_==1)?true:false;
-    CameraSet.SaveCameraSetFile();
+    CameraSet.SaveCameraSetFile(location);
   }
 
   void SetCameraParameter(){
@@ -205,6 +205,7 @@ public:
   UsbCamNode() :
       node_("~")
   {
+    node_.getParam("/location",location);
     // advertise the main image topic
     image_transport::ImageTransport it(node_);
     image_pub_ = it.advertiseCamera("image_raw", 1);
